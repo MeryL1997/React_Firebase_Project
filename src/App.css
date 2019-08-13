@@ -1,33 +1,25 @@
-.App {
-  text-align: center;
+html,
+body {
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+#page-content {
+  flex: 1 0 auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#sticky-footer {
+  flex-shrink: none;
 }
 
-.App-link {
-  color: #61dafb;
-}
+/* Other Classes for Page Styling */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  background: rgba(89,171,115,1);
+  background: -moz-linear-gradient(left, rgba(89,171,115,1) 0%, rgba(100,113,141,1) 42%, rgba(116,33,176,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(89,171,115,1)), color-stop(42%, rgba(100,113,141,1)), color-stop(100%, rgba(116,33,176,1)));
+  background: -webkit-linear-gradient(left, rgba(89,171,115,1) 0%, rgba(100,113,141,1) 42%, rgba(116,33,176,1) 100%);
+  background: -o-linear-gradient(left, rgba(89,171,115,1) 0%, rgba(100,113,141,1) 42%, rgba(116,33,176,1) 100%);
+  background: -ms-linear-gradient(left, rgba(89,171,115,1) 0%, rgba(100,113,141,1) 42%, rgba(116,33,176,1) 100%);
+  background: linear-gradient(to right, rgba(89,171,115,1) 0%, rgba(100,113,141,1) 42%, rgba(116,33,176,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59ab73', endColorstr='#7421b0', GradientType=1 );
 }
