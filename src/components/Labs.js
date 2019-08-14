@@ -1,16 +1,26 @@
-import React from 'react';
-import LabLista from './crud_administrador/LabLista';
+import React, {Fragment} from 'react';
+import LaboratorioLista from './LabLista';
 
-const Labs = ({laboratorios, recargar}) => {
-    return (
-        <div className="jumbotron mt-5">
-            <legend className="mb-4 text-center text-uppercase font-weight-bold" >Listado Laboratorios</legend>
-            <ul className="list-group mt-5">
-                {laboratorios.map(laboratorio => (
-                    <LabLista key={laboratorio.id} laboratorio={laboratorio} recargar={recargar} />
-                ))}
-            </ul>
-        </div>
+function Labs ({productos, auth}){
+    return(
+        <Fragment>
+            {auth ? (
+            <div>
+                <h1 className="text-center">Laboratorios</h1>
+                <ul className="List-group mt-5">
+
+                    {productos.map(producto =>(
+                        <LaboratorioLista
+                        key={producto.id}
+                        producto={producto}>
+                        </LaboratorioLista>
+
+                    ))}
+                </ul>
+            </div>
+            ): <hi>Usted no tiene permitido esta acción</hi> } 
+        </Fragment>
     )
+
 }
-export default Labs
+export default Labs;

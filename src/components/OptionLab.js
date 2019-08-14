@@ -1,11 +1,11 @@
 import React,{Fragment} from 'react'
 
-const OptionLab = ({dato}) => {
+const OpcionesLab = ({dato}) => {
     return (
         <Fragment>
-            <option value={dato.nombreLab}>{dato.nombreLab}</option>
+            <option value={dato.lab}>{dato.lab}</option>
         </Fragment>
     )
 }
 
-export default OptionLab
+export default OpcionesLab;

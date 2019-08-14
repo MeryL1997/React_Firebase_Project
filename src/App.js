@@ -1,98 +1,124 @@
-import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import firebase from './components/conexion/firebase';
-
-//Import de componentes
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import './App.css';
 import Header from './components/Header';
-import AddLab from './components/crud_administrador/AddLab';
+import Producto from './components/Labs';
+import EditarProducto from './components/EditarLab';
+import AgregarProducto from './components/crearLab';
+import EditarHorario from './components/EditarHorario';
+import firebase from './components/conexion/firebase';
 import Horarios from './components/Horarios';
-import AddHorario from './components/crud_administrador/AddHorario';
-import Labs from './components/Labs';
-import EditarHorario from './components/crud_administrador/EditarHorario';
-import EditarLab from './components/crud_administrador/EditarLab';
-import DetalleHorario from './components/crud_administrador/DetalleHorario';
-import DetalleLab from './components/crud_administrador/DetalleLab';
+import AgregarHorario from './components/crearHorario';
 
 function App() {
-  //En el brazo de pruebas
-  
-  const [laboratorios, setLaboratorios] = useState([]);
-  const [horarios, setHorarios] = useState([]);
-  const [recargar, setRecargar] = useState(true);
 
-  useEffect(() => {
-    if (recargar) {
+  const [productos, guardarProdutos] = useState([]);
+  const [recargarProductos, guardarRecargarProductos] = useState(true);
+  const [Autentication, setAutentication] = useState(false);
+  const [horarios, guardarHorarios] = useState([]);
+  
+
+  useEffect(() =>{
+
+    if(recargarProductos){
       firebase.firestore().collection('laboratorio').onSnapshot((snapshot)=>{
         const datos = snapshot.docs.map((dato)=>({
           id: dato.id,
           ...dato.data()
         }))
-        setLaboratorios(datos);
+        
+        guardarProdutos(datos);
       });
-      firebase.firestore().collection('horario').onSnapshot((snapshot)=>{
-        const datos = snapshot.docs.map((dato)=>({
-          id: dato.id,
-          ...dato.data()
-        }))
-        setHorarios(datos);
-      });
+      
     }
+    guardarRecargarProductos(false);
+    firebase.firestore().collection('horario').onSnapshot((snapshot) => {
+      const datos = snapshot.docs.map((dato) => ({
+        id: dato.id,
+        ...dato.data()
+      }))
+      guardarHorarios(datos);
+    });
 
-    //Cambiar a false la recarga, para que no se este consultando a la API a cada momento
-    setRecargar(false)
-    
-  }, [recargar])
+    firebase.auth().onAuthStateChanged((user)=> {
+
+      if (user) {
+        return setAutentication(true);
+      } else {
+        return setAutentication(false);
+      }
+  
+    })
+  
+  },[recargarProductos]); 
   
   return (
     <Router>
-      <Header />
-      <main className="container mb-5 ">
-        <Switch>
-          <Route exact path="/" render={()=>(
-            <Labs laboratorios={laboratorios} recargar={setRecargar}/>
-          )} />
+      <Header/>
+      <main className="container mt-5">
+      <Switch>
+        <Route exact path="/" render = {()=> (
+          <Login recargar={guardarRecargarProductos} />
+        )} ></Route>
+            <Route exact path = "/productos" 
+               render={()=>(
+                 <Producto
+                  productos = {productos} auth={Autentication}
+                 />
+               )}
+            />
+            <Route exact path = "/horarios" 
+               render={()=>(
+                 <Horarios
+                  horarios = {horarios} auth={Autentication}
+                 />
+               )}
+            />
+            <Route exact path = "/productos/nuevo" render ={() =>(<AgregarProducto guardarRecargarProductos={guardarRecargarProductos} auth={Autentication}
+            />)}/>
+            <Route exact path="/horarios/nuevo"
+            render={() => (
+              <AgregarHorario
+                datos={productos}
+                auth={Autentication}
+              />
+            )} />
+            <Route exact path = "/productos/editar/:id" 
+             render ={props => {
+               //tomar el ID del producto
+               const idProducto = props.match.params.id;
 
-          <Route exact path="/nuevo-laboratorio"  render={()=>(
-            <AddLab recargar={setRecargar} />
-          )} />
+               //el producto que se pasa al state
+               const producto = productos.filter(producto => producto.id ===
+                idProducto);
 
-          <Route exact path="/horarios" render={()=>(
-            <Horarios horarios={horarios} recargar={setRecargar}/>
-          )} />
+               return(
+                 <EditarProducto
+                 producto={producto[0]}/>
+               )
+              
+              }}/>
+              <Route exact path="/horarios/editar/:id"
+               render={props => {
+              // tomar el id del horario
+              const idHorario = props.match.params.id;
 
-          <Route exact path="/nuevo-horario" render={()=>(
-            <AddHorario datos={laboratorios} recargar={setRecargar} />
-          )} />
-
-          <Route exact path="/horarios/editar/:id" render={props=> {
-            //Tomando el id del horario
-            const idHorario = props.match.params.id;
-            //horario que se pasa al state 
-            const horario = horarios.filter(horario => horario.id === idHorario);
-            return (
-              <EditarHorario horario={horario[0]} datos={laboratorios} recargar={setRecargar} />
-            )
-          }}/>
-          <Route exact path="/laboratorios/editar/:id" render={props=>{
-            //Tomando el id del lab
-            const idLab = props.match.params.id;
-            //lab que se pasa al state 
-            const lab = laboratorios.filter(lab => lab.id === idLab);
-            return (
-              <EditarLab lab={lab[0]} recargar={setRecargar} />
-            )
-          }} />
-
-          <Route exact path="/horarios/detalle/:id" component={DetalleHorario} /> 
-
-          <Route exact path="/laboratorios/detalle/:id" component={DetalleLab}/>
-        </Switch>
+              //el lab que se pasa al state
+              const horario = horarios.filter(horario => horario.id ===
+                idHorario);
+              return (
+                <EditarHorario
+                  horario={horario[0]}
+                  datos={productos}
+                //guardarRecargarLaboratorios={guardarRecargarLaboratorios}
+                />
+              )
+            }}
+          />
+      </Switch>
       </main>
-      <footer id="sticky-footer" className="py-4 bg-dark text-white-50">
-        <div className="container text-center">
-          <small>Copyright &copy; webtechq.com</small>
-        </div>
-      </footer>
+      <p className="mt-4 p2 text-center">Todos los derechos Reservados</p>
     </Router>
   );
 }

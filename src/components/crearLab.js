@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import Error from '../Error';
-
+import Error from './Error';
 import Swal from 'sweetalert2';
 import {withRouter} from 'react-router-dom';
-import firebase from '../conexion/firebase';
+import firebase from './conexion/firebase';
 
 function AddLab({history, recargar}) {
  

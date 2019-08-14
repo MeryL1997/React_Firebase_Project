@@ -1,34 +1,34 @@
-import React, {useState} from 'react';
+import React,{useState} from 'react';
 import firebase from '../conexion/firebase';
 import {withRouter} from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-function Login({history,recargar}) {
+function Login({history,recargar}){
+     
+    const [Correo, setCorreo] = useState('');
+    const [Contraseña, setContraseña] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [passWord, setPassWord] = useState('');
-
-    const  logeo  = async e =>{
+    const  logeando  = async e =>{
         e.preventDefault();
         try {
-            await firebase.auth().signInWithEmailAndPassword(email, passWord);
+            await firebase.auth().signInWithEmailAndPassword(Correo, Contraseña);
             Swal.fire({
                 position: 'center',
                 type: 'success',
-                title: 'Excelente',
-                text: 'Usuario logeado con éxito!',
+                title: 'Nice',
+                text: 'Ingreso con Éxito',
                 showConfirmButton: false,
                 timer: 1500
             })
             recargar(true);
-            history.replace('/laboratorios');
+            history.replace('/productos');
         } catch (error) {
             console.log(error.message);
             if(error.message==='The password is invalid or the user does not have a password.'){
                 Swal.fire({
                     type: 'error',
-                    title: 'Oops...',
-                    text: 'La contraseña ingresaste es incorrecta!',
+                    title: 'Bad',
+                    text: 'Contraseña Incorrecta',
                 })
             }else if(error.message==='There is no user record corresponding to this identifier. The user may have been deleted.'){
                 Swal.fire({
@@ -40,53 +40,27 @@ function Login({history,recargar}) {
             
         }
     }
+    
+    
+     return(
+        
+         <div id="logreg-forms">
+             <form onSubmit = {logeando} className="form-signin col-md-5 mx-auto">
+                 <h1 className="h3 mb-3 font-weight-normal text-center"> Iniciar Sesion</h1>
+                 <input type="email" id="inputEmail" className="form-control" placeholder="Usuario" required="Este campo es requerido" autofocus="" 
+                  onChange={e=>setCorreo(e.target.value)}
+                 />
+                 <br/>
+                 <input type="password" id="inputPassword" className="form-control" placeholder="Contraseña" required="Este campo es requerido" 
+                 onChange={e=>setContraseña(e.target.value)}
+                 />
+                 <br/>
+                 <input type = "submit" className="btn btn-success font-weight-bold text-uppercase " value ="Iniciar Sesion"/>
+                 
+             </form>
+         </div>
+         
 
-    return (
-        <div className="row justify-content-center mt-3 mb-3">
-            <div className="col-md-5 mb-2">
-                <div className="card mt-5 mb-2">
-                    <div className="card-body mb-2">
-                        <h2 className="text-center py-4 mb-2">
-                            Iniciar Sesión
-                        </h2>
-                        <form onSubmit={logeo}>
-                            <div className="form-group">
-                                <label>Email:</label>
-                                <input 
-                                    type="email"
-                                    className="form-control"
-                                    name="email"
-                                    required
-                                    value={email}
-                                    onChange={e=>setEmail(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label>Password:</label>
-                                <input 
-                                    type="password"
-                                    className="form-control"
-                                    name="password"
-                                    required
-                                    value={passWord}
-                                    onChange={e=>setPassWord(e.target.value)}
-                                />    
-                            </div>    
-
-                            <input 
-                                type="submit"
-                                className="btn btn-success btn-block mt-5"
-                                value="Iniciar Sesión"
-                            />
-                            <br/>
-                            <p className="text-left"><small><code><i>Si aún no tienes una cuenta ponte en contacto con el administrador de la página.</i></code></small></p>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    )
+     )
 }
-
 export default withRouter(Login);
