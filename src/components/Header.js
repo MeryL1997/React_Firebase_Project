@@ -34,36 +34,36 @@ import Swal from 'sweetalert2';
             {Autentication ? ( 
             <div className="container">
                 <Link to="/productos" className="navbar-brand">
-                    Sistema de Laboratorios
+                 Laboratorios Pucese
             </Link>
-
+            
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <Link
                             to="/productos"
                             className="nav-link"
-                        >Laboratorios</Link>
+                        >Laboratorio Listar</Link>
                     </li>
 
                     <li className="nav-item">
                         <Link
                             to="/productos/nuevo"
                             className="nav-link"
-                        >Nuevo Laboratorio</Link>
+                        >Añadir  Laboratorio</Link>
                     </li>
 
                     <li className="nav-item">
                         <Link
                             to="/horarios"
                             className="nav-link"
-                        >Horarios</Link>
+                        >Horarios Listar</Link>
                     </li>
 
                     <li className="nav-item">
                         <Link
                             to="/horarios/nuevo"
                             className="nav-link"
-                        >Agregar Horarios</Link>
+                        >Añadir Horarios</Link>
                     </li>
                     
                 </ul>

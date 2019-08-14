@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Auth/Login';
-//import AR from './components/realidad/Ar';
+import AR from './components/realidad/Ar';
 import './App.css';
 import Header from './components/Header';
 import Producto from './components/Labs';
@@ -85,8 +85,9 @@ function App() {
                 auth={Autentication}
               />
             )} />
-
-        
+                <Route exact path="/arjs"
+                component={AR}
+              />
 
             <Route exact path = "/productos/editar/:id" 
              render ={props => {
@@ -122,7 +123,7 @@ function App() {
           />
       </Switch>
       </main>
-      <p className="mt-4 p2 text-center">Todos los derechos Reservados</p>
+      <p className="mt-4 p2 text-center"></p>
     </Router>
   );
 }

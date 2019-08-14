@@ -46,7 +46,7 @@ function Login({history,recargar}){
         
          <div id="logreg-forms">
              <form onSubmit = {logeando} className="form-signin col-md-5 mx-auto">
-                 <h1 className="h3 mb-3 font-weight-normal text-center"> Iniciar Sesion</h1>
+                 <h1 className="h3 mb-3 font-weight-normal text-center"> Sesion</h1>
                  <input type="email" id="inputEmail" className="form-control" placeholder="Usuario" required="Este campo es requerido" autofocus="" 
                   onChange={e=>setCorreo(e.target.value)}
                  />
@@ -55,7 +55,7 @@ function Login({history,recargar}){
                  onChange={e=>setContraseña(e.target.value)}
                  />
                  <br/>
-                 <input type = "submit" className="btn btn-success font-weight-bold text-uppercase " value ="Iniciar Sesion"/>
+                 <centre><input type = "submit" className="btn btn-success font-weight-bold text-uppercase " value ="Iniciar Sesion"/></centre>
                  
              </form>
          </div>
