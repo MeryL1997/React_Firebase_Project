@@ -1,5 +1,5 @@
 import React from 'react';
-import HorarioLista from './HorarioLista';
+import HorarioLista from './crud_administrador/HorarioLista';
 
 export default function Horarios({horarios, recargar}) {
     return (

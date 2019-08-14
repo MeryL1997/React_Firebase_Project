@@ -1,5 +1,5 @@
 import React from 'react';
-import LabLista from './LabLista';
+import LabLista from './crud_administrador/LabLista';
 
 const Labs = ({laboratorios, recargar}) => {
     return (
