@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Auth/Login';
+//import AR from './components/realidad/Ar';
 import './App.css';
 import Header from './components/Header';
 import Producto from './components/Labs';
@@ -22,7 +23,7 @@ function App() {
   useEffect(() =>{
 
     if(recargarProductos){
-      firebase.firestore().collection('laboratorio').onSnapshot((snapshot)=>{
+      firebase.firestore().collection('lab').onSnapshot((snapshot)=>{
         const datos = snapshot.docs.map((dato)=>({
           id: dato.id,
           ...dato.data()
@@ -84,6 +85,9 @@ function App() {
                 auth={Autentication}
               />
             )} />
+
+        
+
             <Route exact path = "/productos/editar/:id" 
              render ={props => {
                //tomar el ID del producto
@@ -122,5 +126,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

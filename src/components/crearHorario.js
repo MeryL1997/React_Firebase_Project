@@ -8,11 +8,11 @@ import firebase from './conexion/firebase';
 
 function AddHorario({datos, history, recargar}) {
     //States para cada uno de los campos
-    const [nombreDocente, setnombreDocente] = useState('');
+    const [nombreDoc, setnombreDocente] = useState('');
     const [materia, setMateria] = useState('');
     const [horaini, setHoraini] = useState('');
     const [horafin, setHorafin] = useState('');
-    const [laboratorio, setLaboratorio] = useState('');
+    const [lab, setLaboratorio] = useState('');
     const [dia, setDia] = useState('');
     const [error, setError] = useState(false);
 
@@ -20,7 +20,7 @@ function AddHorario({datos, history, recargar}) {
         e.preventDefault();
 
         //Validacion de que todos los campos esten llenos
-        if (nombreDocente==='' || materia==='' || horaini==='' || horafin==='' || laboratorio==='' || dia==='') {
+        if (nombreDoc==='' || materia==='' || horaini==='' || horafin==='' || lab==='' || dia==='') {
             setError(true);
             return;
         }
@@ -31,11 +31,11 @@ function AddHorario({datos, history, recargar}) {
         try {
             firebase.firestore().collection('horario')
             .add({
-                nombreDocente,
+                nombreDoc,
                 materia,
                 horaini,
                 horafin,
-                laboratorio,
+                lab,
                 dia
             }).then(()=>{
                 Swal.fire({
@@ -59,7 +59,7 @@ function AddHorario({datos, history, recargar}) {
         //Enviando una señal para que se vuelva a hacer una consulta cuando se ha ingresado algo nuevo
         recargar(true);
         //Redirigir a la pagina del inicio
-        history.push('/horarios');
+        history.push('/horario');
     }
 
     return (

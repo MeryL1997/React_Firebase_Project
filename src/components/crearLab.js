@@ -6,15 +6,15 @@ import firebase from './conexion/firebase';
 
 function AddLab({history, recargar}) {
  
-    const [nombreLab, setNombreLab] = useState('');
-    const [descripcionLab, setDescripcionlab] = useState('');
+    const [laboratorio, setNombreLab] = useState('');
+    const [detalle, setDescripcionlab] = useState('');
     const [patt, setPatt] = useState('');
     const [error, setError] = useState(false);
 
     const agregarLab = async e => {
         e.preventDefault();
         //Validacion del formulario
-        if (nombreLab==='' || descripcionLab==='' || patt==='') {
+        if (laboratorio==='' || detalle==='' || patt==='') {
             setError(true);
             return;
         }
@@ -23,9 +23,9 @@ function AddLab({history, recargar}) {
         //Creando el nuevo laboratorio
         
         try {
-            firebase.firestore().collection('laboratorio').add({
-                descripcionLab,
-                nombreLab,
+            firebase.firestore().collection('lab').add({
+                detalle,
+                laboratorio,
                 patt
             }).then(
                 Swal.fire({
@@ -47,7 +47,7 @@ function AddLab({history, recargar}) {
         //Enviando una señal para que se vuelva a hacer una consulta cuando se ha ingresado algo nuevo
         recargar(true);
         //Redirigir a la pagina del inicio
-        history.push('/');
+        history.push('/productos');
     }
 
     return (
@@ -82,7 +82,7 @@ function AddLab({history, recargar}) {
                     </div>
 
                     <div className="form-group">
-                        <label>Archivo .patt</label>
+                        <label>patt</label>
                         <textarea 
                             className="form-control" 
                             id="exampleFormControlTextarea1" 
