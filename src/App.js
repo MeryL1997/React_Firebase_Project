@@ -4,14 +4,14 @@ import firebase from './components/conexion/firebase';
 
 //Import de componentes
 import Header from './components/Header';
-import AddLab from './components/AddLab';
+import AddLab from './components/crud_administrador/AddLab';
 import Horarios from './components/Horarios';
-import AddHorario from './components/AddHorario';
+import AddHorario from './components/crud_administrador/AddHorario';
 import Labs from './components/Labs';
-import EditarHorario from './components/EditarHorario';
-import EditarLab from './components/EditarLab';
-import DetalleHorario from './components/DetalleHorario';
-import DetalleLab from './components/DetalleLab';
+import EditarHorario from './components/crud_administrador/EditarHorario';
+import EditarLab from './components/crud_administrador/EditarLab';
+import DetalleHorario from './components/crud_administrador/DetalleHorario';
+import DetalleLab from './components/crud_administrador/DetalleLab';
 
 function App() {
   //En el brazo de pruebas

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import firebase from './conexion/firebase';
+import firebase from '../conexion/firebase';
 
 const HorarioLista = ({horario}) => {
     const eliminarHorario = id =>{

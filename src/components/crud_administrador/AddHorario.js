@@ -1,61 +1,53 @@
-import React,{useState, useRef} from 'react';
-import Error from './Error';
-import OptionLab from './OptionLab';
+import React, {useState} from 'react';
+import OptionLab from '../OptionLab';
+import Error from '../Error';
 
-import firebase from './conexion/firebase';
 import Swal from 'sweetalert2';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import firebase from '../conexion/firebase';
 
-function EditarHorario({history,datos, horario}) {
 
-    //Generando los ref
-    const nombreDocenteRef = useRef('');
-    const materiaRef = useRef('');
-    const horainiRef = useRef('');
-    const horafinRef = useRef('');
-    const laboratorioRef = useRef('');
-    const diaRef = useRef('');
-
-    //State
+function AddHorario({datos, history, recargar}) {
+    //States para cada uno de los campos
+    const [nombreDocente, setnombreDocente] = useState('');
+    const [materia, setMateria] = useState('');
+    const [horaini, setHoraini] = useState('');
+    const [horafin, setHorafin] = useState('');
+    const [laboratorio, setLaboratorio] = useState('');
+    const [dia, setDia] = useState('');
     const [error, setError] = useState(false);
 
-    const editar = async e =>{
+    const agregarHorario = async e => {
         e.preventDefault();
 
-        //validacion
-
-        const nuevoNombreDocente = nombreDocenteRef.current.value,
-                nuevaMateria = materiaRef.current.value,
-                nuevaHoraini = horainiRef.current.value,
-                nuevaHorafin = horafinRef.current.value;
-        
-        if (nuevoNombreDocente==='' || nuevaMateria===''|| nuevaHoraini==='' || nuevaHorafin==='') {
+        //Validacion de que todos los campos esten llenos
+        if (nombreDocente==='' || materia==='' || horaini==='' || horafin==='' || laboratorio==='' || dia==='') {
             setError(true);
             return;
         }
         setError(false);
-        
-        //Obteniendo los valores del formulario
-        const editarH = {
-            nombreDocente: nuevoNombreDocente,
-            materia : nuevaMateria,
-            horaini : nuevaHoraini,
-            horafin : nuevaHorafin,
-            laboratorio : laboratorioRef.current.value,
-            dia : diaRef.current.value
-        }
 
+        //Creando el nuevo horario
+        
         try {
-            //Actualizando los datos en firebase
-            firebase.firestore().collection('horario').doc(horario.id).update(editarH)
-            .then(Swal.fire({
-                position: 'center',
-                type: 'success',
-                title: 'Bien',
-                text: 'Horario editado con exito!',
-                showConfirmButton: false,
-                timer: 1500
-            }))
+            firebase.firestore().collection('horario')
+            .add({
+                nombreDocente,
+                materia,
+                horaini,
+                horafin,
+                laboratorio,
+                dia
+            }).then(()=>{
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Bien',
+                    text: 'Horario creado con exito!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
         } catch (error) {
             console.log(error);
             Swal.fire({
@@ -64,17 +56,19 @@ function EditarHorario({history,datos, horario}) {
                 text: 'Hubo un error, vuelve a intentarlo!'
             })
         }
-        //Redirigir al usuario 
+
+        //Enviando una señal para que se vuelva a hacer una consulta cuando se ha ingresado algo nuevo
+        recargar(true);
+        //Redirigir a la pagina del inicio
         history.push('/horarios');
     }
+
     return (
         <div className="jumbotron mt-5">
             <div className="col-md-8 mx-auto ">
-                <h1 className="text-center">Editar Horario</h1>
-
+                <h1 className="text-center">Agregar Nuevo Horario</h1>
                 {(error) ? <Error mensaje='Todos los campos son obligatorios' /> : null}
-
-                <form className="mt-50" onSubmit={editar}>
+                <form className="mt-50" onSubmit={agregarHorario}>
 
                     <div className="form-group">
                         <label>Nombre Docente</label>
@@ -83,8 +77,7 @@ function EditarHorario({history,datos, horario}) {
                             className="form-control"
                             name="docente"
                             placeholder="Docente"
-                            ref={nombreDocenteRef}
-                            defaultValue={horario.nombreDocente}
+                            onChange={e => setnombreDocente(e.target.value)}
                         />
                     </div>
 
@@ -95,8 +88,7 @@ function EditarHorario({history,datos, horario}) {
                             className="form-control"
                             name="materia"
                             placeholder="Materia"
-                            ref={materiaRef}
-                            defaultValue={horario.materia}
+                            onChange={e => setMateria(e.target.value)}
                         />
                     </div>
                     <div className="form row">
@@ -107,8 +99,7 @@ function EditarHorario({history,datos, horario}) {
                                 className="form-control"
                                 name="horaini"
                                 placeholder="Materia"
-                                ref={horainiRef}
-                                defaultValue={horario.horaini}
+                                onChange={e => setHoraini(e.target.value)}
                             />
                         </div>
                         <div className="form-group col-md-6">
@@ -118,14 +109,13 @@ function EditarHorario({history,datos, horario}) {
                                 className="form-control"
                                 name="horafin"
                                 placeholder="Materia"
-                                ref={horafinRef}  
-                                defaultValue={horario.horafin} 
+                                onChange={e => setHorafin(e.target.value)}
                             />
                         </div>
                     </div>
                     <div className="form-group">
                         <label>Laboratorio</label>
-                        <select className="form-control" name="laboratorio" ref={laboratorioRef} defaultValue={horario.laboratorio}>
+                        <select className="form-control" name="laboratorio" onChange={e => setLaboratorio(e.target.value)}>
                             <option>Seleccione un laboratorio</option>
                             {datos.map(dato => (
                                 <OptionLab key={dato.id} dato={dato} />
@@ -134,7 +124,7 @@ function EditarHorario({history,datos, horario}) {
                     </div>
                     <div className="form-group">
                         <label>Día</label>
-                        <select className="form-control" name="dia" ref={diaRef} defaultValue={horario.dia}>
+                        <select className="form-control" name="dia" onChange={e => setDia(e.target.value)}>
                             <option>Seleccione un día</option>
                             <option value="Lunes">Lunes</option>
                             <option value="Martes" >Martes</option>
@@ -144,10 +134,10 @@ function EditarHorario({history,datos, horario}) {
                         </select>
                     </div>
 
-                    <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-primary btn-block py-3" value="Editar Laboratorio" />
+                    <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-primary btn-block py-3" value="Agregar Laboratorio" />
                 </form>
             </div>
         </div>
     )
 }
-export default withRouter(EditarHorario);
+export default withRouter(AddHorario);
