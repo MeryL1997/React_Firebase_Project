@@ -43,20 +43,24 @@ function Login({history,recargar}){
     
     
      return(
-       <div class="form-group">
-           <form onSubmit={logeo} className="form-signin col-md-5 mx-auto">
-           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
-          <div class="form-group"></div>
-          <label for="exampleInputEmail1">Password</label>
-          <div class="col-md-12 text-center "></div>
-          <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password"/>
-          <br/>
-          <div class="col-md-12 text-center mb-3">
-          <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
-          </div>
-       </form>
-       </div>
+         <div className="form-group">
+             <form onSubmit={logeo}>
+                 <div className="form-signin col-md-5 mx-auto">
+                 <label for="exampleInputEmail1">Email address</label>
+                 <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                 value={Correo} onChange={e=>setCorreo(e.target.value)} />
+                 <div class="form-group"></div>
+                 <label for="exampleInputEmail1">Password</label>
+                 <div class="col-md-12 text-center "></div>
+                 <input type="password" name="password" id="password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password" 
+                 value={Contraseña} onChange={e=>setContraseña(e.target.value)}/>
+                 <br />
+                 <div class="col-md-12 text-center mb-3">
+                     <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                 </div>
+                 </div>
+             </form>
+         </div>
      )
 }
 export default withRouter(Login);
