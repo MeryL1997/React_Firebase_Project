@@ -65,6 +65,12 @@ import Swal from 'sweetalert2';
                             className="nav-link"
                         >Añadir Horarios</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/Ar.js"
+                            className="nav-link"
+                        >Ar.js</Link>
+                    </li>
                     
                 </ul>
                 <button className="btn btn-sm btn-outline-primary my-2 my-sm-0" onClick={logout} >Cerrar Sesión</button>

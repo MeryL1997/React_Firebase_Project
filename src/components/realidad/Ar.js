@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AFrameRenderer, Marker } from 'react-web-ar';
-import firebase from '../components/config/firebase';
+import firebase from '../conexion/firebase';
 
 export default function Ar (){  
 
