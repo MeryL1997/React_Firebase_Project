@@ -19,7 +19,7 @@ function LabLista({producto}){
             if (result.value) {
   
               try {
-                  firebase.firestore().collection('laboratorio').doc(id).delete()
+                  firebase.firestore().collection('lab').doc(id).delete()
                   .then(
                       Swal.fire(
                           'Laboratorio Eliminado',
