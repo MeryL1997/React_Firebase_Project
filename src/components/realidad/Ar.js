@@ -1,22 +1,63 @@
-import React from 'react'
-import {AFrameRenderer,Marker} from 'react-web-ar'
+import React, { useState } from 'react';
+import { AFrameRenderer, Marker } from 'react-web-ar';
+import firebase from '../components/config/firebase';
 
-export default function AR() {
-    return (
-        <AFrameRenderer arToolKit={{ sourceType: 'webcam' }} >
-            <Marker parameters={{ preset: 'hiro' }}>
+export default function Ar (){  
 
-                <a-box color="blue" position="0 0.09 0" scale="0.4 0.8 0.8">
-                    <a-animation
-                        attribute="rotation"
-                        to="360 0 0"
-                        dur="2000"
-                        easing="linear"
-                        repeat="indefinite"
-                    />
-                </a-box>
+  const [horarios, guardarHorarios] = useState([]);
+  const consulta = ()=>{
+    firebase.firestore().collection('horario').where('lab','==','Laboratorio 1')
+      .onSnapshot((snapshot) => {
+        const datos = snapshot.docs.map((dato) => ({
+          id: dato.id,
+          ...dato.data()
+        }))
+        guardarHorarios(datos);
+        console.log(horarios)
+      });
 
-            </Marker>
-        </AFrameRenderer>
-    )
+      firebase.firestore().collection('horario').where('lab','==','Laboratorio 2')
+      .onSnapshot((snapshot) => {
+        const datos = snapshot.docs.map((dato) => ({
+          id: dato.id,
+          ...dato.data()
+        }))
+        guardarHorarios(datos);
+        console.log(horarios)
+      });
+  }
+
+  return (
+    <AFrameRenderer arToolKit={{ sourceType: 'webcam' }}>
+      {consulta()}
+      <Marker parameters={{
+          preset: "pattern",
+          type: "pattern",
+          url: "https://github.com/MeryL1997/React_Firebase_Project/blob/master/src/components/marcadores/pattern%20de%20MArcadores/Lab1.patt"
+        }}>
+          <a-text
+						rotation="-100 0 0"
+						color="#0eff00"
+						height="2.5"
+						width="2.5"
+						position="-0.5 0.1 0"
+					/>
+      </Marker>
+
+      <Marker parameters={{
+          preset: "pattern",
+          type: "pattern",
+          url: "https://github.com/MeryL1997/React_Firebase_Project/blob/master/src/components/marcadores/pattern%20de%20MArcadores/Lab2.patt"
+        }}>
+          <a-text
+						rotation="-100 0 0"
+						color="#0eff00"
+						height="2.5"
+						width="2.5"
+						position="-0.5 0.1 0"
+					/>
+      </Marker>
+      
+    </AFrameRenderer>
+  )
 }

@@ -8,7 +8,7 @@ function Login({history,recargar}){
     const [Correo, setCorreo] = useState('');
     const [Contraseña, setContraseña] = useState('');
 
-    const  logeando  = async e =>{
+    const  logeo  = async e =>{
         e.preventDefault();
         try {
             await firebase.auth().signInWithEmailAndPassword(Correo, Contraseña);
@@ -43,24 +43,21 @@ function Login({history,recargar}){
     
     
      return(
-        
-         <div id="logreg-forms">
-             <form onSubmit = {logeando} className="form-signin col-md-5 mx-auto">
-                 <h1 className="h3 mb-3 font-weight-normal text-center"> Inicio Sesiòn</h1>
-                 <p>Usuario:</p> <input type="email" id="inputEmail" className="form-control" placeholder="Usuario" required="Este campo es requerido" autofocus="" 
-                  onChange={e=>setCorreo(e.target.value)}
-                 />
-                 <br/>
-                 <p>Contraseña:</p> <input type="password" id="inputPassword" className="form-control" placeholder="Contraseña" required="Este campo es requerido" 
-                 onChange={e=>setContraseña(e.target.value)}
-                 />
-                 <br/>
-                 <centre><input type = "submit" className="btn btn-warning font-weight-bold text-uppercase " value ="Iniciar Sesion"/></centre>
-                 
-             </form>
-         </div>
-         
-
+       <div class="form-group">
+           <form onSubmit={logeo} className="form-signin col-md-5 mx-auto">
+           <label for="exampleInputEmail1">Email address</label>
+          <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
+          <div class="form-group"></div>
+          <label for="exampleInputEmail1">Password</label>
+          <div class="col-md-12 text-center "></div>
+          <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password"/>
+          <br/>
+          <div class="col-md-12 text-center mb-3">
+          <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+          </div>
+       </form>
+       </div>
      )
 }
 export default withRouter(Login);
+//</div><div class="form-group"> </div>
