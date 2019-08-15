@@ -6,7 +6,7 @@ function Labs ({productos, auth}){
         <Fragment>
             {auth ? (
             <div>
-                <h1 className="text-center">Laboratorios</h1>
+                <h1 className="text-center">Lista de Laboratorio</h1>
                 <ul className="List-group mt-5">
 
                     {productos.map(producto =>(
@@ -18,7 +18,7 @@ function Labs ({productos, auth}){
                     ))}
                 </ul>
             </div>
-            ): <hi>Usted no tiene permitido esta acción</hi> } 
+            ): <hi>Usted no tiene permitedo solo el administrador</hi> } 
         </Fragment>
     )
 

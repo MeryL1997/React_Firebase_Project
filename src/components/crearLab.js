@@ -53,7 +53,7 @@ function AddLab({history, recargar}) {
     return (
         <div className="jumbotron mt-5">
             <div className="col-md-8 mx-auto ">
-                <h1 className="text-center">Agregar Nuevo Laboratorio</h1>
+                <h1 className="text-center">Añadir Nuevo Laboratorio</h1>
 
                 {(error) ? <Error mensaje='Todos los campos son obligatorios' /> : null}
 
@@ -90,7 +90,7 @@ function AddLab({history, recargar}) {
                             onChange={e => setPatt(e.target.value)}></textarea>
                         
                     </div>
-                    <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-primary btn-block py-3" value="Agregar Laboratorio" />
+                    <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-secondary btn-block py-3" value="Agregar Laboratorio" />
                 </form>
             </div>
         </div>

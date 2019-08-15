@@ -37,7 +37,7 @@ function EditarLab ({producto, history}){
             .then(Swal.fire({
                 position: 'center',
                 type: 'success',
-                title: 'Naizu',
+                title: 'Exito',
                 text: 'El Laboratorio se ha editado con exito',
                 showConfirmButton: false,
                 timer: 1500
@@ -101,7 +101,7 @@ function EditarLab ({producto, history}){
                 </div>
 
 
-                <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-primary btn-block py-3" value="Editar Lab" />
+                <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-secondary btn-block py-3" value="Editar Lab" />
             </form>
         </div>
     )

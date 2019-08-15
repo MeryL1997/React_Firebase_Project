@@ -65,7 +65,7 @@ function AddHorario({datos, history, recargar}) {
     return (
         <div className="jumbotron mt-5">
             <div className="col-md-8 mx-auto ">
-                <h1 className="text-center">Agregar Nuevo Horario</h1>
+                <h1 className="text-center">Añadir Nuevo Horario</h1>
                 {(error) ? <Error mensaje='Todos los campos son obligatorios' /> : null}
                 <form className="mt-50" onSubmit={agregarHorario}>
 
@@ -133,7 +133,7 @@ function AddHorario({datos, history, recargar}) {
                         </select>
                     </div>
 
-                    <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-primary btn-block py-3" value="Agregar Laboratorio" />
+                    <input type="submit" className="font-weight-bold text-uppercase mt-5 btn btn-secondary btn-block py-3" value="Agregar Laboratorio" />
                 </form>
             </div>
         </div>

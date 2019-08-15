@@ -15,7 +15,7 @@ function Login({history,recargar}){
             Swal.fire({
                 position: 'center',
                 type: 'success',
-                title: 'Nice',
+                title: 'Exito',
                 text: 'Ingreso con Éxito',
                 showConfirmButton: false,
                 timer: 1500
@@ -46,16 +46,16 @@ function Login({history,recargar}){
         
          <div id="logreg-forms">
              <form onSubmit = {logeando} className="form-signin col-md-5 mx-auto">
-                 <h1 className="h3 mb-3 font-weight-normal text-center"> Sesion</h1>
-                 <input type="email" id="inputEmail" className="form-control" placeholder="Usuario" required="Este campo es requerido" autofocus="" 
+                 <h1 className="h3 mb-3 font-weight-normal text-center"> Inicio Sesiòn</h1>
+                 <p>Usuario:</p> <input type="email" id="inputEmail" className="form-control" placeholder="Usuario" required="Este campo es requerido" autofocus="" 
                   onChange={e=>setCorreo(e.target.value)}
                  />
                  <br/>
-                 <input type="password" id="inputPassword" className="form-control" placeholder="Contraseña" required="Este campo es requerido" 
+                 <p>Contraseña:</p> <input type="password" id="inputPassword" className="form-control" placeholder="Contraseña" required="Este campo es requerido" 
                  onChange={e=>setContraseña(e.target.value)}
                  />
                  <br/>
-                 <centre><input type = "submit" className="btn btn-success font-weight-bold text-uppercase " value ="Iniciar Sesion"/></centre>
+                 <centre><input type = "submit" className="btn btn-warning font-weight-bold text-uppercase " value ="Iniciar Sesion"/></centre>
                  
              </form>
          </div>

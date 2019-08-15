@@ -6,7 +6,7 @@ function Horarios({horarios, guardarRecargarLaboratorios, auth}){
         <Fragment>
             {auth ? (
                 <div>
-                    <h1 className="text-center">Horarios</h1>
+                    <h1 className="text-center">Lista de Horarios</h1>
                     <ul className="list-group mt-5">
                         {horarios.map(horario => (
                             <HorarioLista

@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
         Swal.fire({
             position: 'center',
             type: 'success',
-            title: 'Nice',
+            title: 'Exito',
             text: 'Cuenta Cesarrada con exito',
             showConfirmButton: false,
             timer: 1500
@@ -30,7 +30,7 @@ import Swal from 'sweetalert2';
       })
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-warning">
             {Autentication ? ( 
             <div className="container">
                 <Link to="/productos" className="navbar-brand">
