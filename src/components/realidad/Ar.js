@@ -25,6 +25,16 @@ export default function Ar (){
         guardarHorarios(datos);
         console.log(horarios)
       });
+
+      firebase.firestore().collection('horario').where('lab','==','Laboratorio 3')
+      .onSnapshot((snapshot) => {
+        const datos = snapshot.docs.map((dato) => ({
+          id: dato.id,
+          ...dato.data()
+        }))
+        guardarHorarios(datos);
+        console.log(horarios)
+      });
   }
 
   return (
@@ -37,7 +47,7 @@ export default function Ar (){
         }}>
           <a-text
 						rotation="-100 0 0"
-						color="#0eff00"
+						color="#000EFF"
 						height="2.5"
 						width="2.5"
 						position="-0.5 0.1 0"
@@ -51,7 +61,21 @@ export default function Ar (){
         }}>
           <a-text
 						rotation="-100 0 0"
-						color="#0eff00"
+						color="#000EFF"
+						height="2.5"
+						width="2.5"
+						position="-0.5 0.1 0"
+					/>
+      </Marker>
+      
+      <Marker parameters={{
+          preset: "pattern",
+          type: "pattern",
+          url: "https://github.com/MeryL1997/React_Firebase_Project/blob/master/src/components/marcadores/pattern%20de%20MArcadores/Lab3.patt"
+        }}>
+          <a-text
+						rotation="-100 0 0"
+						color="#000EFF"
 						height="2.5"
 						width="2.5"
 						position="-0.5 0.1 0"

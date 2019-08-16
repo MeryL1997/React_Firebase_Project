@@ -32,7 +32,7 @@ function EditarLab ({producto, history}){
         }
         
         try {
-            //Actualizando los datos en firebase
+            
             firebase.firestore().collection('laboratorio').doc(producto.id).update(editarL)
             .then(Swal.fire({
                 position: 'center',
@@ -68,6 +68,7 @@ function EditarLab ({producto, history}){
                 <div className="form-group">
                     <label>Nombre del Laboratorio</label>
                     <input 
+                        
                         type="text" 
                         className="form-control" 
                         name="nombre" 
@@ -80,6 +81,7 @@ function EditarLab ({producto, history}){
                 <div className="form-group">
                     <label>Detalle del Laboratorio</label>
                     <input 
+                       
                         type="text" 
                         className="form-control" 
                         name="Detalle"
